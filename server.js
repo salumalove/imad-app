@@ -3,14 +3,64 @@ var morgan = require('morgan');
 var path = require('path');
 
 var app = express();
-app.use(morgan('combined'));
+app.use(morgan('combined')); 
+
+var articleOne = {
+    title: 'Article One | SalumaLove',
+    heading: 'Article One',
+    date: 'April 22,1998',
+    content: `  <p>
+                    This is the content of my first article. I love my article. I love this course.:):):):):):):):):):):):):):):):)
+                 </p>
+                 <p>
+                    This is the content of my first article. I love my article. I love this course.:):):):):):):):):):):):):):):):)
+                </p>
+                <p>
+                    This is the content of my first article. I love my article. I love this course.:):):):):):):):):):):):):):):):)
+                </p>`
+}
+
+function createTemplate(data) {
+    var title= data.title;
+    var date= data.date;
+    var heading= data.heading;
+    var content= data.content;
+<html>
+    <head>
+        <title>
+            ${tite}]
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="/ui/style.css" rel="stylesheet" /> 
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <a href="/">Home</a>
+            </div>    
+            <hr/>
+            <h3>
+                ${heading}
+            </h3>
+            <div>`
+               ${date}
+            </div>
+            <div>
+                ${content}
+            </div>
+        </div>
+    </body>
+</html>
+
+    
+}
 
 app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.get('/article-one',function(req,res){
-  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+  res.send(createTemplate(articleOne));
 });
 
 app.get('/article-two',function(req,res){
